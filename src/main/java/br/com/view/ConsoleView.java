@@ -3,7 +3,13 @@ package br.com.view;
 import br.com.model.FileMoveResult;
 import br.com.model.OrganizationResult;
 
+import java.nio.file.Path;
+
 public class ConsoleView {
+
+    public void showSourceFolder(Path sourceFolder) {
+        System.out.println("Pasta que sera organizada: " + sourceFolder);
+    }
 
     public void showResult(OrganizationResult result) {
         if (result.sourceFolderCreated()) {

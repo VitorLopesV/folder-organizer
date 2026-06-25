@@ -17,6 +17,7 @@ public class FolderOrganizerController {
 
     public void organize(FolderOrganizerConfig config) {
         try {
+            view.showSourceFolder(config.sourceFolder());
             OrganizationResult result = service.organize(config);
             view.showResult(result);
         } catch (RuntimeException exception) {
