@@ -14,8 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Serviço responsável por organizar arquivos em subpastas por categoria.
+ */
 public class FolderOrganizerService {
 
+    /**
+     * Organiza a pasta configurada, criando-a quando ela ainda não existir.
+     *
+     * @param config Configuração com a pasta que será organizada.
+     * @return Resultado da organização executada.
+     */
     public OrganizationResult organize(FolderOrganizerConfig config) {
         Path sourceFolder = config.sourceFolder();
 
@@ -35,6 +44,13 @@ public class FolderOrganizerService {
         }
     }
 
+    /**
+     * Organiza todos os arquivos regulares encontrados na pasta de origem.
+     *
+     * @param sourceFolder Pasta que contém os arquivos a serem organizados.
+     * @return Lista de resultados individuais de movimentação.
+     * @throws IOException Quando a leitura da pasta falhar.
+     */
     private List<FileMoveResult> organizeFiles(Path sourceFolder) throws IOException {
         List<FileMoveResult> results = new ArrayList<>();
 
@@ -47,6 +63,12 @@ public class FolderOrganizerService {
         return List.copyOf(results);
     }
 
+    /**
+     * Move um arquivo para a pasta correspondente à sua categoria.
+     *
+     * @param file Arquivo que será movido.
+     * @return Resultado da tentativa de movimentação.
+     */
     private FileMoveResult moveToCategoryFolder(Path file) {
         FileCategory category = resolveCategory(file);
 
@@ -63,10 +85,22 @@ public class FolderOrganizerService {
         }
     }
 
+    /**
+     * Resolve a categoria do arquivo a partir da extensão.
+     *
+     * @param file Arquivo que terá a categoria resolvida.
+     * @return Categoria correspondente à extensão do arquivo.
+     */
     private FileCategory resolveCategory(Path file) {
         return FileCategory.fromExtension(extensionOf(file));
     }
 
+    /**
+     * Obtém a extensão do arquivo sem o ponto.
+     *
+     * @param file Arquivo usado para extrair a extensão.
+     * @return Extensão normalizada ou texto vazio quando não houver extensão.
+     */
     private String extensionOf(Path file) {
         String fileName = file.getFileName().toString();
         int dotIndex = fileName.lastIndexOf('.');
@@ -78,6 +112,12 @@ public class FolderOrganizerService {
         return fileName.substring(dotIndex + 1).toLowerCase(Locale.ROOT);
     }
 
+    /**
+     * Gera um caminho de destino ainda não utilizado.
+     *
+     * @param destination Caminho de destino desejado.
+     * @return Caminho disponível, com sufixo numérico quando necessário.
+     */
     private Path uniqueDestination(Path destination) {
         if (!Files.exists(destination)) {
             return destination;
