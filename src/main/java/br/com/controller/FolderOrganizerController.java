@@ -3,14 +3,14 @@ package br.com.controller;
 import br.com.model.FolderOrganizerConfig;
 import br.com.model.OrganizationResult;
 import br.com.service.FolderOrganizerService;
-import br.com.view.ConsoleView;
+import br.com.view.FolderOrganizerView;
 
 public class FolderOrganizerController {
 
     private final FolderOrganizerService service;
-    private final ConsoleView view;
+    private final FolderOrganizerView view;
 
-    public FolderOrganizerController(FolderOrganizerService service, ConsoleView view) {
+    public FolderOrganizerController(FolderOrganizerService service, FolderOrganizerView view) {
         this.service = service;
         this.view = view;
     }

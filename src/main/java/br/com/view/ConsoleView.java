@@ -5,12 +5,14 @@ import br.com.model.OrganizationResult;
 
 import java.nio.file.Path;
 
-public class ConsoleView {
+public class ConsoleView implements FolderOrganizerView {
 
+    @Override
     public void showSourceFolder(Path sourceFolder) {
         System.out.println("Pasta que sera organizada: " + sourceFolder);
     }
 
+    @Override
     public void showResult(OrganizationResult result) {
         if (result.sourceFolderCreated()) {
             System.out.println("Pasta criada: " + result.sourceFolder());
@@ -22,6 +24,7 @@ public class ConsoleView {
                 + result.failedCount() + " falha(s).");
     }
 
+    @Override
     public void showError(String message) {
         System.err.println("Erro: " + message);
     }
